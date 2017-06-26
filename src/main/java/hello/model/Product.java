@@ -1,4 +1,4 @@
-package hello;
+package hello.model;
 
 import java.math.BigDecimal;
 
@@ -8,12 +8,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(
+			strategy= GenerationType.AUTO,
+			generator="native"
+	)
+	@GenericGenerator(
+			name = "native",
+			strategy = "native"
+	)
 	private Long id;
 	@NotEmpty
 	private String name;

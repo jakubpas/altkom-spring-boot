@@ -1,5 +1,6 @@
-package hello;
+package hello.controller;
 
+import hello.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +15,7 @@ public class GreetingController {
 	@RequestMapping("/greeting")
 	public String greeting(Model model) {
 
-		model.addAttribute("products", repo.findAll());
-
+		model.addAttribute("products", repo.getAll());
 		return "greeting";
 	}
 
