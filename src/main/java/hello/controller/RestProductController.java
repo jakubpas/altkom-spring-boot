@@ -4,6 +4,7 @@ package hello.controller;
 import javax.inject.Inject;
 import java.util.List;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +18,22 @@ import hello.model.Product;
 import hello.repo.ProductRepo;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/product")
 public class RestProductController {
 
 	@Inject
 	ProductRepo repo;
 
+
+    @ApiOperation(value = "Add a product")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity saveProduct(@RequestBody Product product){
+        repo.insert(product);
+        return new ResponseEntity("Product saved successfully", HttpStatus.OK);
+    }
+
 	@Monitoring
+	@ApiOperation("List products")
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Product> list() {
 		return repo.getAll();
